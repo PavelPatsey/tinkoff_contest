@@ -1,6 +1,3 @@
-# id решения 2571153
-
-
 def get_internet_costs(A, B, C, D):
     return A + (D - B) * C if D - B > 0 else A
 
