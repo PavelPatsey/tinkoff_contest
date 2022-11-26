@@ -2,8 +2,7 @@
 
 
 def get_internet_costs(A, B, C, D):
-    costs = A + (D - B) * C if D - B > 0 else A
-    return costs
+    return A + (D - B) * C if D - B > 0 else A
 
 
 def read_input():
