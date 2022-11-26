@@ -11,23 +11,22 @@ def get_modified_number_and_difference(number):
     return modified_number, modified_number - number
 
 
+def sum_after_replacement(x):
+    return int("9" * len(str(x))) - x
+
+
 def get_sum_increase(max_operations_number, numbers):
     numbers.sort(key=sum_after_replacement, reverse=True)
-    print(f"{numbers=}")
     stack = []
     difference = None
-    while difference != 0:
+    i = 0
+    while difference != 0 and i < max_operations_number:
         get_modified_number, difference = get_modified_number_and_difference(numbers[0])
         numbers[0] = get_modified_number
         numbers.sort(key=sum_after_replacement, reverse=True)
-        print(f"{get_modified_number=} {difference=}")
-        print(f"{numbers=}")
         stack.append(difference)
+        i += 1
     return sum(stack)
-
-
-def sum_after_replacement(x):
-    return int("9" * len(str(x))) - x
 
 
 def read_input():
@@ -39,17 +38,6 @@ def read_input():
 def main():
     numbers_amount, max_operations_number, numbers = read_input()
     print(get_sum_increase(max_operations_number, numbers))
-
-    # print(numbers.sort(cmp=numeric_compare, reverse = True))
-    # print(numbers.sort(cmp=numeric_compare))
-    # print(sorted(numbers, key=sum_after_replacement, reverse=True))
-
-    # a = 87
-    # print(f"{a=}", get_modified_number_and_difference(a))
-    # a = 99
-    # print(f"{a=}", get_modified_number_and_difference(a))
-    # a = 81862
-    # print(f"{a=}", get_modified_number_and_difference(a))
 
 
 if __name__ == "__main__":
@@ -75,8 +63,14 @@ if __name__ == "__main__":
 0
 
 Ввод 
-1 10
+2 2
+19 101
+Вывод
+890
+
+Ввод 
+4 4
 99 91 19 101
 Вывод
-0
+978
 """
