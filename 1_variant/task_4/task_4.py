@@ -11,19 +11,20 @@ def get_modified_number_and_difference(number):
     return modified_number, modified_number - number
 
 
-def sum_after_replacement(x):
+def difference_after_all_replacements(x):
     return int("9" * len(str(x))) - x
 
 
 def get_sum_increase(max_operations_number, numbers):
-    numbers.sort(key=sum_after_replacement, reverse=True)
+    numbers.sort(key=difference_after_all_replacements, reverse=True)
     stack = []
     difference = None
     i = 0
     while difference != 0 and i < max_operations_number:
-        get_modified_number, difference = get_modified_number_and_difference(numbers[0])
-        numbers[0] = get_modified_number
-        numbers.sort(key=sum_after_replacement, reverse=True)
+        modified_number, difference = get_modified_number_and_difference(numbers[0])
+        if difference != 0:
+            numbers[0] = modified_number
+        numbers.sort(key=difference_after_all_replacements, reverse=True)
         stack.append(difference)
         i += 1
     return sum(stack)
@@ -38,6 +39,7 @@ def read_input():
 def main():
     numbers_amount, max_operations_number, numbers = read_input()
     print(get_sum_increase(max_operations_number, numbers))
+    # print(get_modified_number_and_difference(99))
 
 
 if __name__ == "__main__":
