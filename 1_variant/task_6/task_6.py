@@ -12,6 +12,8 @@ def get_answer(students):
 
     if len(even_stack) == 1 and len(odd_stack) == 1:
         return even_stack[0] + 1, odd_stack[0] + 1
+    elif len(even_stack) == 0 and len(odd_stack) == 0 and len(students) >= 3:
+        return 1, 3
     else:
         return -1, -1
 
@@ -51,14 +53,20 @@ if __name__ == "__main__":
 1 2
 
 Ввод
+3
+1 2 3
+Вывод
+1 3
+
+Ввод
 8
 1 2 6 4 5 3 7 8
 Вывод
 3 6
 
 Ввод
-8
+9
 1 2 6 4 5 3 7 8 10
 Вывод
-3 6
+-1 -1
 """
