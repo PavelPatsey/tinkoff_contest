@@ -29,13 +29,18 @@ def get_answer(students):
         keys = list(counter.keys())
         values = list(counter.values())
 
-        double_gifted_student_number = keys[values.index(2)]
+        if 2 in values:
+            double_gifted_student_number = keys[values.index(2)]
+        else:
+            return (-1, -1)
 
         no_gifted_student_number = None
         i = 1
-        while i <= students_len:
+        number_is_found = False
+        while not number_is_found and i <= students_len:
             if i not in keys:
                 no_gifted_student_number = i
+                number_is_found = True
             i += 1
 
         transactions = []
