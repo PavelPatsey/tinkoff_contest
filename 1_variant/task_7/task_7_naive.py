@@ -1,4 +1,5 @@
 from collections import Counter
+from itertools import permutations
 
 
 def is_circular(students):
@@ -22,38 +23,22 @@ def get_redirected_students(students, from_whom_number, to_whom_number):
 
 
 def get_answer(students):
+    if is_circular(students):
+        return (-1, -1)
+
     students_len = len(students)
-    counter = Counter(students)
+    all_transactions_variants = list(permutations(range(1, students_len + 1), 2))
+    transactions = list(zip(range(1, students_len + 1), students))
 
-    if len(counter) == students_len - 1:
-        keys = list(counter.keys())
-        values = list(counter.values())
-
-        double_gifted_student_number = keys[values.index(2)]
-
-        no_gifted_student_number = None
-        i = 1
-        while i <= students_len:
-            if i not in keys:
-                no_gifted_student_number = i
-            i += 1
-
-        transactions = []
-        i = 0
-        while i <= students_len - 1:
-            if students[i] == double_gifted_student_number:
-                transactions.append((i + 1, no_gifted_student_number))
-            i += 1
-
-        for transaction in transactions:
-            if is_circular(
-                get_redirected_students(
-                    students,
-                    transaction[0],
-                    transaction[1],
-                ),
-            ):
-                return transaction
+    for transaction_variant in all_transactions_variants:
+        if not transaction_variant in transactions and is_circular(
+            get_redirected_students(
+                students,
+                transaction_variant[0],
+                transaction_variant[1],
+            ),
+        ):
+            return transaction_variant
 
     return (-1, -1)
 
@@ -110,4 +95,10 @@ if __name__ == "__main__":
 2 1 4 5 3
 Вывод
 -1 -1
+
+Ввод
+3
+2  3  1
+Вывод
+-1  -1
 """
