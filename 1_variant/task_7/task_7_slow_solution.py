@@ -3,16 +3,17 @@ from collections import Counter
 
 def is_circular(students):
     students_len = len(students)
-    stack = []
+    stack = set()
     next_student_number = 1
+    current_student_number = None
     i = 0
     while i < students_len:
         current_student_number = next_student_number
         next_student_number = students[current_student_number - 1]
-        stack.append(next_student_number)
+        stack.add(next_student_number)
         i += 1
 
-    return len(Counter(stack)) == students_len and next_student_number == 1
+    return len(stack) == students_len and next_student_number == 1
 
 
 def get_redirected_students(students, from_whom_number, to_whom_number):
